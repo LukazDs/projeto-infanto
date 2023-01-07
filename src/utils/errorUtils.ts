@@ -38,7 +38,7 @@ export function notFoundError(message: string): AppError {
 export function unauthorizedError(message: string): AppError {
   return { type: 'unauthorized', message };
 }
-
+name;
 export function wrongSchemaError(message: string): AppError {
   return { type: 'wrong_schema', message };
 }
