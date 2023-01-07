@@ -1,8 +1,8 @@
 import { Users } from '@prisma/client';
 
-type IUser = Omit<Users, 'id'>;
+type TUser = Omit<Users, 'id'>;
 
-export interface IUserSignUp extends IUser {
+export interface IUserSignUp extends TUser {
   confirmPassword: string;
 }
 
