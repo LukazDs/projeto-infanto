@@ -4,7 +4,11 @@ import * as validateUser from '../middleware/validateUser.js';
 
 const authRouter = Router();
 
-authRouter.post('/user/login', authController.loginUser);
+authRouter.post(
+  '/user/login',
+  validateUser.validateLogin,
+  authController.loginUser,
+);
 
 authRouter.post(
   '/user/sign-up',
