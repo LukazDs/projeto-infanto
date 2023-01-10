@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import * as userRepository from '../repositories/userRepository.js';
 import { conflictError, unauthorizedError } from '../utils/errorUtils.js';
-import { IUserSignUp } from '../utils/userUtils.js';
+import { IUserSignUp, IUserWithToken } from '../utils/userUtils.js';
 
 export async function insertUser(user: IUserSignUp) {
   await organizeUser(user);
@@ -43,7 +43,15 @@ export async function checkPasswordByEmail(password: string, email: string) {
   await printErrorLogin(!passwordValidation, msgError);
 }
 
-export async function createUserByToken(user: Users) {}
+export async function createUserWithTokenByEmail(email: string) {
+  const userDb: Users = await userRepository.findUserByEmail(email);
+  await deletePassword(userDb);
+
+  const token: string = await getToken(userDb);
+  const userDefault: IUserWithToken = { ...userDb, token };
+
+  return userDefault;
+}
 
 async function getToken(user: Users) {
   const JWT_PASSWORD: string = process.env.JWT_KEY;

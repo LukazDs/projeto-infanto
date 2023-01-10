@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IUserSignUp, TUserLogin } from '../utils/userUtils.js';
+import { IUserSignUp, IUserWithToken, TUserLogin } from '../utils/userUtils.js';
 import * as authService from '../services/authService.js';
 
 export async function insertUser(req: Request, res: Response) {
@@ -18,5 +18,9 @@ export async function loginUser(req: Request, res: Response) {
   await authService.userRegistered(user.email);
   await authService.checkPasswordByEmail(user.password, user.email);
 
-  res.status(200).send('OK');
+  const upload: IUserWithToken = await authService.createUserWithTokenByEmail(
+    user.email,
+  );
+
+  res.status(200).send(upload);
 }
