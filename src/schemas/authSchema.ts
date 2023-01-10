@@ -12,3 +12,12 @@ export const userSignupSchema = joi.object<IUserSignUp>({
     .label('Provide a valid password!'),
   confirmPassword: joi.ref('password'),
 });
+
+export const userLoginSchema = joi.object<IUserSignUp>({
+  email: joi.string().email().required().label('Provide a valid email!'),
+  password: joi
+    .string()
+    .length(8)
+    .required()
+    .label('Provide a valid password!'),
+});
