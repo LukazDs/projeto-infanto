@@ -43,7 +43,9 @@ export async function checkPasswordByEmail(password: string, email: string) {
   await printErrorLogin(!passwordValidation, msgError);
 }
 
-export async function getToken(user: Users) {
+export async function createUserByToken(user: Users) {}
+
+async function getToken(user: Users) {
   const JWT_PASSWORD: string = process.env.JWT_KEY;
   const TIME: string = process.env.JWT_TIME;
 
@@ -68,4 +70,8 @@ async function printErrorLogin(validation: boolean, msgError: string) {
   if (validation) {
     throw unauthorizedError(msgError);
   }
+}
+
+async function deletePassword(user: Users) {
+  delete user.password;
 }
