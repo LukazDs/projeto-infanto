@@ -2,7 +2,7 @@ import { Users } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import * as userRepository from '../repositories/userRepository.js';
-import { conflictError } from '../utils/errorUtils.js';
+import { conflictError, unauthorizedError } from '../utils/errorUtils.js';
 import { IUserSignUp } from '../utils/userUtils.js';
 
 export async function insertUser(user: IUserSignUp) {
@@ -27,11 +27,20 @@ export async function userNotRegistered(email: string) {
 
 export async function userRegistered(email: string) {
   const userDb: Users = await findUserByEmail(email);
+  const msgError = 'Invalid email or password!';
+  await printErrorLogin(!userDb, msgError);
+}
 
-  if (!userDb) {
-    const msgError = 'Invalid email or password!';
-    throw conflictError(msgError);
-  }
+export async function checkPasswordByEmail(password: string, email: string) {
+  const userDb: Users = await userRepository.findUserByEmail(email);
+
+  const passwordValidation: boolean = bcrypt.compareSync(
+    password,
+    userDb.password,
+  );
+
+  const msgError = 'Invalid email or password!';
+  await printErrorLogin(!passwordValidation, msgError);
 }
 
 export async function getToken(user: Users) {
@@ -43,17 +52,6 @@ export async function getToken(user: Users) {
   return token;
 }
 
-// export async function checkPassword(password: string, passwordDb: string) {
-//   const passwordValidation: boolean = bcrypt.compareSync(
-//     password,
-//     passwordDb,
-//   );
-
-//   if(!passwordValidation) {
-//     throw
-//   }
-// }
-
 async function encryptPassword(password: string) {
   const digits: number = Number(process.env.PASSWORD_DIGIT_BCRYPT);
   const passwordHash = bcrypt.hashSync(password, digits);
@@ -64,4 +62,10 @@ async function encryptPassword(password: string) {
 async function organizeUser(user: IUserSignUp) {
   user.password = await encryptPassword(user.password);
   delete user.confirmPassword;
+}
+
+async function printErrorLogin(validation: boolean, msgError: string) {
+  if (validation) {
+    throw unauthorizedError(msgError);
+  }
 }

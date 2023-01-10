@@ -16,6 +16,7 @@ export async function loginUser(req: Request, res: Response) {
   const user: TUserLogin = req.body;
 
   await authService.userRegistered(user.email);
+  await authService.checkPasswordByEmail(user.password, user.email);
 
   res.status(200).send('OK');
 }

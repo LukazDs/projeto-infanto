@@ -4,9 +4,7 @@ import * as validateUser from '../middleware/validateUser.js';
 
 const authRouter = Router();
 
-authRouter.post('/user/login', () => {
-  console.log('You are in LoginRoute');
-});
+authRouter.post('/user/login', authController.loginUser);
 
 authRouter.post(
   '/user/sign-up',
