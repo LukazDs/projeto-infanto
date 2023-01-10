@@ -6,8 +6,4 @@ export interface IUserSignUp extends TUser {
   confirmPassword: string;
 }
 
-//name
-//imageUrl
-//email
-//password
-//confirmPassword
+export type TUserLogin = Omit<TUser, keyof { imageURL: string; name: string }>;
