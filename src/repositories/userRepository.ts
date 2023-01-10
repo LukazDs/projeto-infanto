@@ -9,3 +9,9 @@ export async function insertUser(user: IUserSignUp) {
 
   return userDb;
 }
+
+export async function findUserByEmail(email: string) {
+  const userDb: Users = await prisma.users.findUnique({ where: { email } });
+
+  return userDb;
+}

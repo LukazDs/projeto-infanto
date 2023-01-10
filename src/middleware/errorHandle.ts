@@ -1,24 +1,25 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
+
 import {
   AppError,
   errorTypeToStatusCode,
   isAppError,
-} from '../utils/errorUtils';
+} from '../utils/errorUtils.js';
 
-export async function errorHandle(
-  _req: Request,
-  res: Response,
-  _next: NextFunction,
+export default async function errorHandler(
   err: Error | AppError,
+  req: Request,
+  res: Response,
+  next: NextFunction,
 ) {
   console.log('Ops. Something went wrong', err);
 
   if (isAppError(err)) {
-    const { message, type } = err;
+    const { type, message } = err;
     const statusCode = errorTypeToStatusCode(type);
 
     return res.status(statusCode).send(message);
   }
 
-  return res.sendStatus(500);
+  return res.sendStatus(500); // internal server error
 }

@@ -5,6 +5,8 @@ import * as authService from '../services/authService.js';
 export async function insertUser(req: Request, res: Response) {
   const user: IUserSignUp = req.body;
 
+  await authService.findUserByEmail(user.email);
+
   await authService.insertUser(user);
 
   res.sendStatus(201);
