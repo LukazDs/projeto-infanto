@@ -45,6 +45,7 @@ export async function checkPasswordByEmail(password: string, email: string) {
 
 export async function createUserWithTokenByEmail(email: string) {
   const userDb: Users = await userRepository.findUserByEmail(email);
+
   await deletePassword(userDb);
 
   const token: string = await getToken(userDb);

@@ -19,3 +19,22 @@ model Users {
 
   @@map("users")
 }
+
+model Personage {
+  id             Int            @id @default(autoincrement())
+  name           String
+  age            Int
+  player         Boolean
+  classification Classification @default(Warrior)
+  imageUrl       String
+
+  @@map("personage")
+}
+
+enum Classification {
+  Mage
+  Warrior
+  Archer
+  Healer
+  Hunter
+}
