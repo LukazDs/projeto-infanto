@@ -5,8 +5,14 @@ import checkToken from '../middleware/validateToken.js';
 
 const personageRouter = Router();
 
+personageRouter.get(
+  '/user/:userId/personages',
+  checkToken,
+  personageController.getPersonagesByUserId,
+);
+
 personageRouter.post(
-  '/user/:userId/personage/insert',
+  '/user/:userId/personage',
   checkToken,
   validatePersonage.validateRegister,
   personageController.insertPersonage,

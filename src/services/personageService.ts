@@ -1,4 +1,8 @@
-import { TPersonageNoId, TPersonageNoUserId } from '../utils/personageUtils.js';
+import {
+  TPersonageNoId,
+  TPersonageNoUserId,
+  TPersonageNoUserIdWithId,
+} from '../utils/personageUtils.js';
 import * as personageRepository from '../repositories/personageRepository.js';
 
 export async function insertPersonage(
@@ -11,6 +15,13 @@ export async function insertPersonage(
   );
 
   await personageRepository.insertPersonage(personageDefault);
+}
+
+export async function getPersonageByUserId(userId: string) {
+  const personages: TPersonageNoUserIdWithId[] =
+    await personageRepository.getPersonagesByUserId(Number(userId));
+
+  return personages;
 }
 
 async function configurePersonage(
