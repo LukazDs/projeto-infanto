@@ -5,6 +5,7 @@ import {
 } from '../utils/personageUtils.js';
 import * as personageRepository from '../repositories/personageRepository.js';
 import { Personages } from '@prisma/client';
+import { notFoundError } from '../utils/errorUtils.js';
 
 export async function insertPersonage(
   personage: TPersonageNoUserId,
@@ -36,6 +37,18 @@ export async function deletePersonage(userId: string, personageId: string) {
     Number(userId),
     Number(personageId),
   );
+}
+
+export async function checkPersonageId(id: number) {
+  const personage: Personages = await personageRepository.getPersonageById(
+    Number(id),
+  );
+
+  if (!personage) {
+    const msg: string = 'Personage not found!';
+
+    throw notFoundError(msg);
+  }
 }
 
 async function configurePersonage(

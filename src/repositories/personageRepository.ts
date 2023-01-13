@@ -5,6 +5,10 @@ export async function insertPersonage(personage: TPersonageNoId) {
   await prisma.personages.create({ data: personage });
 }
 
+export async function getPersonageById(id: number) {
+  return await prisma.personages.findUnique({ where: { id } });
+}
+
 export async function getPersonagesByUserId(userId: number) {
   return await prisma.personages.findMany({
     where: { userId },

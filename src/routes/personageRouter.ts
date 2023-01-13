@@ -6,7 +6,7 @@ import checkToken from '../middleware/validateToken.js';
 const personageRouter = Router();
 
 personageRouter.get(
-  '/user/:userId/personages',
+  '/user/personages',
   checkToken,
   personageController.getPersonagesByUserId,
 );
@@ -18,14 +18,14 @@ personageRouter.get(
 );
 
 personageRouter.post(
-  '/user/:userId/personage',
+  '/user/personage',
   checkToken,
   validatePersonage.validateRegister,
   personageController.insertPersonage,
 );
 
 personageRouter.delete(
-  '/user/:userId/personage/:personageId',
+  '/user/personage/:personageId',
   checkToken,
   personageController.deletePersonage,
 );

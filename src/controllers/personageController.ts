@@ -8,31 +8,33 @@ import {
 
 export async function insertPersonage(req: Request, res: Response) {
   const personage: TPersonageNoUserId = req.body;
-  const userId: string = req.params.userId;
+  const userId: string = res.locals.verified.id;
 
   await personageService.insertPersonage(personage, userId);
 
   res.sendStatus(201);
 }
 
-export async function getPersonagesByUserId(req: Request, res: Response) {
-  const userId: string = req.params.userId;
+export async function getPersonagesByUserId(_req: Request, res: Response) {
+  const userId: string = res.locals.verified.id;
 
   const personages: TPersonageNoUserIdWithId[] =
     await personageService.getPersonageByUserId(userId);
 
-  res.status(200).send(personages);
+  res.status(200).send({ personages });
 }
 
 export async function getPersonages(_req: Request, res: Response) {
   const personages: Personages[] = await personageService.getPersonages();
 
-  res.status(200).send(personages);
+  res.status(200).send({ personages });
 }
 
 export async function deletePersonage(req: Request, res: Response) {
-  const userId: string = req.params.userId;
+  const userId: string = res.locals.verified.id;
   const personageId: string = req.params.personageId;
+
+  await personageService.checkPersonageId(Number(personageId));
 
   await personageService.deletePersonage(userId, personageId);
 
