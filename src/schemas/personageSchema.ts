@@ -17,4 +17,8 @@ export const personageBodySchema = joi.object({
     .string()
     .equal('Mage', 'Warrior', 'Archer', 'Healer', 'Hunter'),
   imageUrl: joi.string().uri().required(),
+  specie: joi.string().required(),
+  race: joi.string().required(),
+  bibliography: joi.string().required(),
+  money: joi.number().required(),
 });

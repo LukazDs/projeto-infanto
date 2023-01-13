@@ -30,6 +30,10 @@ model Personages {
   imageUrl       String
   Users          Users          @relation(fields: [userId], references: [id])
   userId         Int
+  bibliography   String
+  specie         String
+  race           String
+  money          Float
 
   @@map("personages")
 }

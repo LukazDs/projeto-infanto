@@ -20,6 +20,10 @@ export async function getPersonagesByUserId(userId: number) {
       age: true,
       imageUrl: true,
       classification: true,
+      bibliography: true,
+      race: true,
+      specie: true,
+      money: true,
     },
     orderBy: {
       id: 'desc',
