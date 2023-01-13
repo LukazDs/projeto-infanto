@@ -31,6 +31,13 @@ export async function getPersonages() {
   return personages;
 }
 
+export async function deletePersonage(userId: string, personageId: string) {
+  await personageRepository.deletePersonage(
+    Number(userId),
+    Number(personageId),
+  );
+}
+
 async function configurePersonage(
   personage: TPersonageNoUserId,
   userId: number,

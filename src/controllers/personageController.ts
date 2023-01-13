@@ -29,3 +29,12 @@ export async function getPersonages(_req: Request, res: Response) {
 
   res.status(200).send(personages);
 }
+
+export async function deletePersonage(req: Request, res: Response) {
+  const userId: string = req.params.userId;
+  const personageId: string = req.params.personageId;
+
+  await personageService.deletePersonage(userId, personageId);
+
+  res.status(201).send('Delete personage.');
+}

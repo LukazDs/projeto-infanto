@@ -24,4 +24,10 @@ personageRouter.post(
   personageController.insertPersonage,
 );
 
+personageRouter.delete(
+  '/user/:userId/personage/:personageId',
+  checkToken,
+  personageController.deletePersonage,
+);
+
 export default personageRouter;

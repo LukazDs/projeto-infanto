@@ -27,3 +27,7 @@ export async function getPersonagesByUserId(userId: number) {
 export async function getPersonages() {
   return await prisma.personages.findMany();
 }
+
+export async function deletePersonage(userId: number, id: number) {
+  await prisma.personages.deleteMany({ where: { userId, id } });
+}
