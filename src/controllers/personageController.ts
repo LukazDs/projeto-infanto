@@ -24,4 +24,8 @@ export async function getPersonagesByUserId(req: Request, res: Response) {
   res.status(200).send(personages);
 }
 
-// get all personages
+export async function getPersonages(_req: Request, res: Response) {
+  const personages: Personages[] = await personageService.getPersonages();
+
+  res.status(200).send(personages);
+}

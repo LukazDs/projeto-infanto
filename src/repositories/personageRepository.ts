@@ -23,3 +23,7 @@ export async function getPersonagesByUserId(userId: number) {
     take: 10,
   });
 }
+
+export async function getPersonages() {
+  return await prisma.personages.findMany();
+}

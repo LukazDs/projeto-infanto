@@ -11,6 +11,12 @@ personageRouter.get(
   personageController.getPersonagesByUserId,
 );
 
+personageRouter.get(
+  '/master/personages',
+  checkToken,
+  personageController.getPersonages,
+);
+
 personageRouter.post(
   '/user/:userId/personage',
   checkToken,
