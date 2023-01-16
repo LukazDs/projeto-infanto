@@ -5,6 +5,7 @@ import authRouter from './routes/authRouter.js';
 import personageRouter from './routes/personageRouter.js';
 import skillRouter from './routes/skillRouter.js';
 import errorHandler from './middleware/errorHandle.js';
+import itemRouter from './routes/itemRouter.js';
 
 const app = express();
 app.use(json(), cors());
@@ -14,6 +15,7 @@ app.use(json(), cors());
 app.use(authRouter);
 app.use(personageRouter);
 app.use(skillRouter);
+app.use(itemRouter);
 
 app.use(errorHandler);
 
