@@ -3,8 +3,8 @@ import joi from 'joi';
 import { TItemNoPersonageId } from '../utils/itemUtils.js';
 
 export const itemBodySchema = joi.object<TItemNoPersonageId>({
-  name: joi.string().min(3).required(),
-  quantity: joi.number().min(1).required(),
+  name: joi.string().min(3).required().label('Invalid name!'),
+  quantity: joi.number().min(1).required().label('Invalid quantity!'),
   type: joi
     .string()
     .equal(
@@ -17,5 +17,6 @@ export const itemBodySchema = joi.object<TItemNoPersonageId>({
       TypeItem.Shield,
       TypeItem.Weapon,
     )
-    .required(),
+    .required()
+    .label('Type item invalid!'),
 });
