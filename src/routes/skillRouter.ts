@@ -12,4 +12,11 @@ skillRouter.post(
   skillController.insertPointsSkill,
 );
 
+skillRouter.put(
+  '/skill/:id',
+  checkToken,
+  validateSkill.validateRegister,
+  skillController.updateSkill,
+);
+
 export default skillRouter;

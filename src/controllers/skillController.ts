@@ -13,3 +13,13 @@ export async function insertPointsSkill(req: Request, res: Response) {
 
   res.sendStatus(201);
 }
+
+export async function updateSkill(req: Request, res: Response) {
+  const id: string = req.params.id;
+  const skill: TSkillNoPersonageId = req.body;
+
+  await skillService.checkSkillById(id);
+  await skillService.updateSkill(skill, id);
+
+  res.sendStatus(201);
+}

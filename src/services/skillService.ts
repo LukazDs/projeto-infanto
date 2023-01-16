@@ -1,7 +1,7 @@
 import { TSkill, TSkillNoPersonageId } from '../utils/skillUtils.js';
 import * as skillRepository from '../repositories/skillRepository.js';
 import { Skill } from '@prisma/client';
-import { conflictError } from '../utils/errorUtils.js';
+import { conflictError, notFoundError } from '../utils/errorUtils.js';
 
 export async function insertSkill(
   skill: TSkillNoPersonageId,
@@ -32,8 +32,19 @@ export async function checkSkillByPersonageId(personageId: string) {
   }
 }
 
+export async function checkSkillById(id: string) {
+  const skills: Skill[] = await skillRepository.getSkillById(Number(id));
+
+  if (!skills.length) {
+    throw notFoundError('Skill not found!');
+  }
+}
 async function configureSkill(skill: TSkillNoPersonageId, personageId: number) {
   const skillDefault: TSkill = { ...skill, personageId };
 
   return skillDefault;
+}
+
+export async function updateSkill(skill: TSkillNoPersonageId, id: string) {
+  await skillRepository.updateSkill(skill, Number(id));
 }
