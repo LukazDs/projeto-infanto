@@ -35,29 +35,51 @@ model Personages {
   race           String
   money          Float
   Skill          Skill[]
+  Item           Item[]
 
   @@map("personages")
 }
 
 model Skill {
-  id            Int @id @default(autoincrement())
-  force         Int @default(0)
-  resistance    Int @default(0)
-  perception    Int @default(0)
-  balance       Int @default(0)
-  precision     Int @default(0)
-  reflection    Int @default(0)
-  velocity      Int @default(0)
-  wisdom        Int @default(0)
-  intelligence  Int @default(0)
-  charisma      Int @default(0)
-  ruse          Int @default(0)
-  psychological Int @default(0)
-  sensitivity   Int @default(0)
-  immunity      Int @default(0)
+  id            Int        @id @default(autoincrement())
+  force         Int        @default(0)
+  resistance    Int        @default(0)
+  perception    Int        @default(0)
+  balance       Int        @default(0)
+  precision     Int        @default(0)
+  reflection    Int        @default(0)
+  velocity      Int        @default(0)
+  wisdom        Int        @default(0)
+  intelligence  Int        @default(0)
+  charisma      Int        @default(0)
+  ruse          Int        @default(0)
+  psychological Int        @default(0)
+  sensitivity   Int        @default(0)
+  immunity      Int        @default(0)
+  Personage     Personages @relation(fields: [personageId], references: [id])
+  personageId   Int
+}
 
+model Item {
+  id          Int        @id @default(autoincrement())
+  name        String
+  quantity    Int
+  type        TypeItem
   Personage   Personages @relation(fields: [personageId], references: [id])
   personageId Int
+
+  @@map("item")
+}
+
+enum TypeItem {
+  Food
+  Weapon
+  Shield
+  Armature
+  Potions
+  Map
+  Parchment
+  Others
 }
 
 enum Classification {
