@@ -8,7 +8,8 @@ export async function validateRegister(
 ) {
   const validation = skillBodySchema.validate(req.body);
 
-  const errorMessage: string = 'Enter an integer!';
+  const errorMessage: string =
+    'Enter an integer! If it is greater than or equal to -6 or less than or equal to 6!';
 
   if (validation.error) {
     return res.status(422).send(errorMessage);
