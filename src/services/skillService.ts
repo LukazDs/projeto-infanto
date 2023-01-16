@@ -12,6 +12,14 @@ export async function insertSkill(
   await skillRepository.insertSkill(skillDefault);
 }
 
+export async function getSkillByPersonageId(personageId: string) {
+  const skills: Skill[] = await skillRepository.getSkillByPersonageId(
+    Number(personageId),
+  );
+
+  return skills[0];
+}
+
 export async function checkSkillByPersonageId(personageId: string) {
   const skills: Skill[] = await skillRepository.getSkillByPersonageId(
     Number(personageId),
