@@ -4,7 +4,7 @@ import {
   TPersonageNoUserIdWithId,
 } from '../utils/personageUtils.js';
 import * as personageRepository from '../repositories/personageRepository.js';
-import { Personages } from '@prisma/client';
+import { Personage } from '@prisma/client';
 import { notFoundError } from '../utils/errorUtils.js';
 
 export async function insertPersonage(
@@ -27,7 +27,7 @@ export async function getPersonageByUserId(userId: string) {
 }
 
 export async function getPersonages() {
-  const personages: Personages[] = await personageRepository.getPersonages();
+  const personages: Personage[] = await personageRepository.getPersonages();
 
   return personages;
 }
@@ -40,7 +40,7 @@ export async function deletePersonage(userId: string, personageId: string) {
 }
 
 export async function checkPersonageId(id: number) {
-  const personage: Personages = await personageRepository.getPersonageById(
+  const personage: Personage = await personageRepository.getPersonageById(
     Number(id),
   );
 

@@ -1,4 +1,4 @@
-import { Users } from '@prisma/client';
+import { User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import * as userRepository from '../repositories/userRepository.js';
@@ -11,13 +11,13 @@ export async function insertUser(user: IUserSignUp) {
 }
 
 export async function findUserByEmail(email: string) {
-  const userDb: Users = await userRepository.findUserByEmail(email);
+  const userDb: User = await userRepository.findUserByEmail(email);
 
   return userDb;
 }
 
 export async function userNotRegistered(email: string) {
-  const userDb: Users = await findUserByEmail(email);
+  const userDb: User = await findUserByEmail(email);
 
   if (userDb) {
     const msgError = 'Email is already in use please use another email!';
@@ -26,13 +26,13 @@ export async function userNotRegistered(email: string) {
 }
 
 export async function userRegistered(email: string) {
-  const userDb: Users = await findUserByEmail(email);
+  const userDb: User = await findUserByEmail(email);
   const msgError = 'Invalid email or password!';
   await printErrorLogin(!userDb, msgError);
 }
 
 export async function checkPasswordByEmail(password: string, email: string) {
-  const userDb: Users = await userRepository.findUserByEmail(email);
+  const userDb: User = await userRepository.findUserByEmail(email);
 
   const passwordValidation: boolean = bcrypt.compareSync(
     password,
@@ -44,7 +44,7 @@ export async function checkPasswordByEmail(password: string, email: string) {
 }
 
 export async function createUserWithTokenByEmail(email: string) {
-  const userDb: Users = await userRepository.findUserByEmail(email);
+  const userDb: User = await userRepository.findUserByEmail(email);
 
   await deletePassword(userDb);
 
@@ -54,7 +54,7 @@ export async function createUserWithTokenByEmail(email: string) {
   return userDefault;
 }
 
-async function getToken(user: Users) {
+async function getToken(user: User) {
   const JWT_PASSWORD: string = process.env.JWT_KEY;
   const TIME: string = process.env.JWT_TIME;
 
@@ -81,6 +81,6 @@ async function printErrorLogin(validation: boolean, msgError: string) {
   }
 }
 
-async function deletePassword(user: Users) {
+async function deletePassword(user: User) {
   delete user.password;
 }

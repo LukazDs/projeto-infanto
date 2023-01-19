@@ -2,15 +2,15 @@ import { prisma } from '../config/database.js';
 import { TPersonageNoId } from '../utils/personageUtils.js';
 
 export async function insertPersonage(personage: TPersonageNoId) {
-  await prisma.personages.create({ data: personage });
+  await prisma.personage.create({ data: personage });
 }
 
 export async function getPersonageById(id: number) {
-  return await prisma.personages.findUnique({ where: { id } });
+  return await prisma.personage.findUnique({ where: { id } });
 }
 
 export async function getPersonagesByUserId(userId: number) {
-  return await prisma.personages.findMany({
+  return await prisma.personage.findMany({
     where: { userId },
     select: {
       userId: false,
@@ -33,9 +33,9 @@ export async function getPersonagesByUserId(userId: number) {
 }
 
 export async function getPersonages() {
-  return await prisma.personages.findMany();
+  return await prisma.personage.findMany();
 }
 
 export async function deletePersonage(userId: number, id: number) {
-  await prisma.personages.deleteMany({ where: { userId, id } });
+  await prisma.personage.deleteMany({ where: { userId, id } });
 }

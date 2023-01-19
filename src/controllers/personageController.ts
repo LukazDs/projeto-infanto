@@ -1,4 +1,4 @@
-import { Personages } from '@prisma/client';
+import { Personage } from '@prisma/client';
 import { Request, Response } from 'express';
 import * as personageService from '../services/personageService.js';
 import {
@@ -25,7 +25,7 @@ export async function getPersonagesByUserId(_req: Request, res: Response) {
 }
 
 export async function getPersonages(_req: Request, res: Response) {
-  const personages: Personages[] = await personageService.getPersonages();
+  const personages: Personage[] = await personageService.getPersonages();
 
   res.status(200).send({ personages });
 }
