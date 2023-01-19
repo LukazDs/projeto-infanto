@@ -27,6 +27,9 @@ export async function getItems(req: Request, res: Response) {
 
 export async function deleteItem(req: Request, res: Response) {
   const id: number = Number(req.params.id);
+
+  await itemService.checkItemById(id);
+
   const item: Item = await itemService.deleteItemById(id);
 
   res.status(200).send(item);

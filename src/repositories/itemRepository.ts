@@ -16,3 +16,7 @@ export async function getItems(personageId: number) {
 export async function deleteItemById(id: number) {
   return await prisma.item.delete({ where: { id } });
 }
+
+export async function getItemById(id: number) {
+  return await prisma.item.findUnique({ where: { id } });
+}
