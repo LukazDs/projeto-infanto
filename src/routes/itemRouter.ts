@@ -12,4 +12,10 @@ itemRouter.post(
   itemController.insertItem,
 );
 
+itemRouter.get(
+  '/personage/:personageId/item',
+  checkToken,
+  itemController.getItems,
+);
+
 export default itemRouter;
