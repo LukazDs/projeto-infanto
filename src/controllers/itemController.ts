@@ -1,8 +1,12 @@
 import { Request, Response } from 'express';
-import { TItemNoPersonageId } from '../utils/itemUtils.js';
+import { TItem, TItemNoPersonageId } from '../utils/itemUtils.js';
+import * as itemService from '../services/itemService.js';
 
 export async function insertItem(req: Request, res: Response) {
   const item: TItemNoPersonageId = req.body;
+  const personageId: string = req.params.personageId;
 
-  res.status(201).send('ok');
+  const itemDb: TItem = await itemService.insertItem(item, personageId);
+
+  res.status(201).send(itemDb);
 }
