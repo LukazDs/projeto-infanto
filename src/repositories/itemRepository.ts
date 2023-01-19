@@ -12,3 +12,7 @@ export async function getItems(personageId: number) {
     where: { personageId },
   });
 }
+
+export async function deleteItemById(id: number) {
+  return await prisma.item.delete({ where: { id } });
+}

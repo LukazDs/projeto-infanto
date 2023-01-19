@@ -19,3 +19,9 @@ export async function getItemsByPersonageId(personageId: number) {
 
   return itemDb;
 }
+
+export async function deleteItemById(id: number) {
+  const itemDb: Item = await itemRepository.deleteItemById(id);
+
+  return itemDb;
+}

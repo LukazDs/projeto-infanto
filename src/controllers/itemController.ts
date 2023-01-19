@@ -24,3 +24,10 @@ export async function getItems(req: Request, res: Response) {
 
   res.status(200).send(items);
 }
+
+export async function deleteItem(req: Request, res: Response) {
+  const id: number = Number(req.params.id);
+  const item: Item = await itemService.deleteItemById(id);
+
+  res.status(200).send(item);
+}

@@ -18,4 +18,6 @@ itemRouter.get(
   itemController.getItems,
 );
 
+itemRouter.delete('/item/:id', checkToken, itemController.deleteItem);
+
 export default itemRouter;
